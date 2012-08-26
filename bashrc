@@ -1,11 +1,14 @@
 # ~/.bashrc
 
+
 # this .bashrc file contains content of 
 # andreas textor .bashrc available at
 # https://github.com/atextor/dotfiles.git
 
-# set editor for mutt, svn
+# set editor for e.g. mutt, svn
 EDITOR=vim
+# the location for the R history file (required by .Rprofile)
+R_HISTFILE="~/.R/"
 
 # set an alias for mutt
 alias mutt='mutt -F ~/.mutt/.muttrc'
