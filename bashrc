@@ -6,9 +6,11 @@
 # https://github.com/atextor/dotfiles.git
 
 # set editor for e.g. mutt, svn
-EDITOR=vim
+export EDITOR=vim
 # the location for the R history file (required by .Rprofile)
-R_HISTFILE="~/.R/"
+export R_HISTFILE="~/.R/"
+# the location ofh the R libraries
+export R_LIBS="~/.R/library"
 
 # set an alias for mutt
 alias mutt='mutt -F ~/.mutt/.muttrc'
