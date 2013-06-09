@@ -27,8 +27,8 @@ PATH=$PATH:/home/michael/Software/bin:/opt/rstudio/bin
 function whereami() {
   if [ $HOSTNAME = "prefect" ]; then echo "home"; exit; fi
   if [ $HOSTNAME = "beeblebrox" ]; then echo "notebook"; exit; fi
-  if [ $HOSTNAME = "andorra" ] || [ $HOSTNAME = "ramssys" ] || [ $HOSTNAME = "uhu"] || [ $HOSTNAME = "cu" ] ; then echo "fu"; fi
-  if [ $HOSTNAME = "gruenau" ] || [ $HOSTNAME = "pandora" ] ; then echo "hu"; fi
+  if [ $HOSTNAME = "andorra" ] || [ $HOSTNAME = "ramssys" ] || [ $HOSTNAME = "uhu"] || [ $HOSTNAME = "cu" ] || [ $HOSTNAME = "knecht" ]; then echo "fu"; fi
+  if [ $HOSTNAME = "gruenau" ] || [ $HOSTNAME = "pandora" ] || [ $HOSTNAME = "jupiter" ]; then echo "hu"; fi
 }
 
 # Locales for units. Use german UTF-8 if available,
@@ -84,10 +84,9 @@ find . -type f -iname '*'$*'*' -ls ;
 }
 
 # setup for simulation environment on "knecht.imp.fu-berlin.de"
-CURRENT_HOSTNAME=$(uname -n)
 EXPECTED_HOSTNAME="knecht"
 
-if [ $CURRENT_HOSTNAME == $EXPECTED_HOSTNAME ]; then
+if [ $HOSTNAME == $EXPECTED_HOSTNAME ]; then
   FREY_SOFTWARE="/home/fenn/frey/NO_BACKUP/Software/build"
   MY_GXX_HOME="${FREY_SOFTWARE}/rtf"
   OMNETPP_HOME="${FREY_SOFTWARE}/omnetpp-4.3"
