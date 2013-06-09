@@ -58,6 +58,7 @@ fi
 # determine if the locales are available and fall back to C if not.
 # Messages in english please.
 msg_loc=$(message_locale)
+
 # Time, date, papersize etc. in german please.
 unt_loc=$(unit_locale)
 unset LC_ALL
@@ -81,3 +82,18 @@ export LC_PAPER=$unt_loc
 function ff() {
 find . -type f -iname '*'$*'*' -ls ;
 }
+
+# setup for simulation environment on "knecht.imp.fu-berlin.de"
+CURRENT_HOSTNAME=$(uname -n)
+EXPECTED_HOSTNAME="knecht"
+
+if [ $CURRENT_HOSTNAME == $EXPECTED_HOSTNAME ]; then
+  FREY_SOFTWARE="/home/fenn/frey/NO_BACKUP/Software/build"
+  MY_GXX_HOME="${FREY_SOFTWARE}/rtf"
+  OMNETPP_HOME="${FREY_SOFTWARE}/omnetpp-4.3"
+  ARA_SIM_HOME="${FREY_SOFTWARE}/ara-sim"
+  PYTHON_HOME="${FREY_SOFTWARE}/python"
+  export PATH="${MY_GXX_HOME}/bin:${OMNETPP_HOME}/bin:${PYTHON_HOME}/bin:${PATH}"
+  export LD_LIBRARY_PATH="${MY_GXX_HOME}/lib:${MY_GXX_HOME}/lib64:${ARA_SIM_HOME}/src:${ARA_SIM_HOME}/inetmanet/src:${OMNETPP_HOME}/lib"
+fi
+
