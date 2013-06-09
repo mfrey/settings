@@ -1,11 +1,6 @@
 settings
 ========
+This repository contains my *.rc and configuration files for different programs. 
 
-Introduction
-------------
-This repository contains *.rc and configuration files for different programs. 
-
-Desription
-----------
 
 
