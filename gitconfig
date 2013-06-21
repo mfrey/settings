@@ -1,0 +1,18 @@
+[core]
+	editor = vim
+
+[merge]
+	tool = vimdiff
+
+[giggle]
+	main-window-maximized = false
+	main-window-geometry = 1579x1130+196+27
+	file-view-vpane-position = 237
+	history-view-vpane-position = 538
+	main-window-view = HistoryView
+
+[color]
+	ui = true
+
+[branch]
+    autosetuprebase = always
