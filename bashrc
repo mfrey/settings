@@ -8,7 +8,7 @@
 # set editor for e.g. mutt, svn
 export EDITOR=vim
 # the location for the R history file (required by .Rprofile)
-export R_HISTFILE="~/.R/"
+export R_HISTFILE="~/.Rhistory"
 # the location ofh the R libraries
 export R_LIBS="~/.R/library"
 
