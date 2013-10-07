@@ -17,6 +17,8 @@ alias mutt='mutt -F ~/.mutt/.muttrc'
 
 # enable core dumps
 ulimit -c unlimited
+# set core dump format (instead of logging via systemd)
+alias cdfmt='echo /tmp/core-%p-%u-%g-%s-%t-%e.core > /proc/sys/kernel/core_pattern'
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
