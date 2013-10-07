@@ -15,6 +15,9 @@ export R_LIBS="~/.R/library"
 # set an alias for mutt
 alias mutt='mutt -F ~/.mutt/.muttrc'
 
+# enable core dumps
+ulimit -c unlimited
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
