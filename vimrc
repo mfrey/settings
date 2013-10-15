@@ -1,5 +1,6 @@
 syntax on
 set number
+set shiftwidth=4
 
 " non vi compatible mode
 set nocp 
@@ -9,6 +10,7 @@ filetype plugin on
 " auto close options when exiting insert mode
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 set completeopt=menu,menuone
+
 
 " configure tags - add additional tags here or comment out not-used ones
 set tags+=~/.vim/tags/cpp
