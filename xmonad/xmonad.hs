@@ -36,7 +36,7 @@ myBorderWidth = 3
 myModMask = mod1Mask
 
 -- set the number of workspaces 
-myWorkspace = ["1","2","3","4","5","6","7","8","9"] 
+myWorkspaces = ["1","2","3","4","5","6","7","8","9"] 
 
 -- execute arbitrary actions and WindowSet manipulations when managing a new window
 myManageHook = composeAll
@@ -97,7 +97,7 @@ main = do
       , borderWidth        = myBorderWidth
       , focusFollowsMouse  = myFocusFollowsMouse
       , workspaces         = myWorkspaces
-      , normalBorderColor  = myNormaleBorderColor
+      , normalBorderColor  = myNormalBorderColor
       , focusedBorderColor = myFocusedBorderColor
 
       -- key bindings
@@ -107,7 +107,7 @@ main = do
       , manageHook         = myManageHook
       , layoutHook         = smartBorders (myLayouts)
       , logHook            = dynamicLogWithPP xmobarPP
-          { ppOutput       = hPutstrLn xmproc
+          { ppOutput       = hPutStrLn xmproc
           , ppTitle        = xmobarColor "green" "" . shorten 50
           , ppLayout       = const ""
           }
