@@ -3,6 +3,7 @@ import Data.Monoid
 import Data.Ratio ((%))
 import System.Exit
 import System.IO
+import Solarized
 import XMonad.Actions.FloatKeys
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -15,12 +16,10 @@ import XMonad.Layout.IM
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
+import XMonad.Config.Gnome
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
-
-import Solarized
-import XMonad.Config.Gnome
 
 -- set terminal to unicode rxvt 
 myTerminal = "urxvt" 
@@ -63,6 +62,17 @@ manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
     -- distance from left edge, 0 %
     l = 1 - w 
 
+myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+    -- launch terminal
+    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    -- lock the screen (xscreensaver daemon must be running)
+    , ((modm , xK_z), spawn "xscreensaver-command lock")
+    -- restart xmonad 
+    , ((modm , xK_q), spawn "xmonad --recompile; xmonad --restart")
+    -- start demnu (application launcher) with yeganesh (script resides in .xmonad/bin)
+    , ((modm , xK_p), spawn "dmenu-yeganesh")
+    ]
+
 myLayout = tiled ||| Mirror tiled ||| Full
   where
     -- default tiling algorithm partitions the screen into two panes
@@ -78,7 +88,6 @@ myLayouts = avoidStruts (
     Tall 1 (3/100) (1/2) |||
     Mirror (Tall 1 (3/100) (1/2))) |||
     noBorders (fullscreenFull Full)
-
 
 -- border color for unfocused windows
 myNormalBorderColor = solarizedBase03
@@ -99,9 +108,11 @@ main = do
       , workspaces         = myWorkspaces
       , normalBorderColor  = myNormalBorderColor
       , focusedBorderColor = myFocusedBorderColor
+      , startupHook        = do
+                                     unsafeSpawn "feh --big-scale /home/michael/Bilder/Wallpapers/isometric.png"
 
       -- key bindings
-      -- keys              = myKeys
+      keys                 = myKeys
 
       -- xmobar settings
       , manageHook         = myManageHook
