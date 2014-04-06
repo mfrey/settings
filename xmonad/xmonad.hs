@@ -73,6 +73,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm , xK_p), spawn "dmenu-yeganesh")
     -- quit xmonad
     , ((modm .|. shiftMask, xK_q ), io (exitWith ExitSuccess))
+    -- audio lower volume
+    , ((0, 0x1008ff11), spawn "amixer set Master 2- unmute")
+    -- audio raise volume
+    , ((0, 0x1008ff13), spawn "amixer set Master 2+ unmute")
+    -- audio mute
+    , ((0, 0x1008ff12), spawn "amixer set Master toggle")
     ]++
     --- switch workspace by alt + f1 ... f10 key
     [ ((modm, k), windows $ W.greedyView i)
