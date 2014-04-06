@@ -71,7 +71,18 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm , xK_q), spawn "xmonad --recompile; xmonad --restart")
     -- start demnu (application launcher) with yeganesh (script resides in .xmonad/bin)
     , ((modm , xK_p), spawn "dmenu-yeganesh")
+    -- quit xmonad
+    , ((modm .|. shiftMask, xK_q ), io (exitWith ExitSuccess))
+    ]++
+    --- switch workspace by alt + f1 ... f10 key
+    [ ((modm, k), windows $ W.greedyView i)
+        | (i, k) <- zip myWorkspaces workspaceKeys
+    ] ++
+    -- mod + f1 ... f10 moves window to workspace and switches to that workspace
+    [ ((mod4Mask, k), (windows $ W.shift i) >> (windows $ W.greedyView i))
+        | (i, k) <- zip myWorkspaces workspaceKeys
     ]
+    where workspaceKeys = [xK_F1 .. xK_F10]
 
 myLayout = tiled ||| Mirror tiled ||| Full
   where
@@ -108,11 +119,9 @@ main = do
       , workspaces         = myWorkspaces
       , normalBorderColor  = myNormalBorderColor
       , focusedBorderColor = myFocusedBorderColor
-      , startupHook        = do
-                                     unsafeSpawn "feh --big-scale /home/michael/Bilder/Wallpapers/isometric.png"
 
       -- key bindings
-      keys                 = myKeys
+      , keys                 = myKeys
 
       -- xmobar settings
       , manageHook         = myManageHook
