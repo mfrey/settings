@@ -23,6 +23,10 @@ set charset="utf-8"
 
 # allow to view html mails using elinks
 set mailcap_path = ~/.mutt/mailcap
+# automatically open HTML messages in elinks
+auto_view text/html
+# first try to read mails as plain and then as html
+alternative_order text/plain text/html
 
 #
 set mbox_type=Maildir
