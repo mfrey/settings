@@ -4,7 +4,7 @@ set realname='Michael Frey'
 set editor=vim
 
 # set color scheme to solarized light
-#source '~/.mutt/solarized-light'
+source '~/.mutt/solarized-light'
 
 # set private mail 
 source '~/.mutt/accounts/privat'
@@ -15,6 +15,14 @@ folder-hook $folder 'source ~/.mutt/accounts/hu'
 # set work (fu) mail 
 source '~/.mutt/accounts/fu'
 folder-hook $folder 'source ~/.mutt/accounts/fu'
+# set cccmz mail 
+source '~/.mutt/accounts/ccc'
+folder-hook $folder 'source ~/.mutt/accounts/ccc'
+
+set charset="utf-8"
+
+# allow to view html mails using elinks
+set mailcap_path = ~/.mutt/mailcap
 
 #
 set mbox_type=Maildir
@@ -47,6 +55,8 @@ macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/pri
 macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/accounts/hu<enter><change-folder>!<enter>'
 # shortcut to fu mailbox
 macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.mutt/accounts/fu<enter><change-folder>!<enter>'
+# shortcut to cccmz mailbox
+macro index,pager <f5> '<sync-mailbox><enter-command>source ~/.mutt/accounts/ccc<enter><change-folder>!<enter>'
 
 # add gpg support
 source /etc/Muttrc.gpg.dist
