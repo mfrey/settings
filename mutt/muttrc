@@ -1,0 +1,52 @@
+# set real name
+set realname='Michael Frey'
+# set vim as my editor for composing mails
+set editor=vim
+
+# set color scheme to solarized light
+#source '~/.mutt/solarized-light'
+
+# set private mail 
+source '~/.mutt/accounts/privat'
+folder-hook $folder 'source ~/.mutt/accounts/privat'
+# set work (hu) mail 
+source '~/.mutt/accounts/hu'
+folder-hook $folder 'source ~/.mutt/accounts/hu'
+# set work (fu) mail 
+source '~/.mutt/accounts/fu'
+folder-hook $folder 'source ~/.mutt/accounts/fu'
+
+#
+set mbox_type=Maildir
+#
+set folder=$HOME/.mail
+# store message headers locally to speed things up (has to be a folder for multiple accounts)
+set header_cache = ~/.mutt/hcache
+
+# allow mutt to open new imap connection automatically
+unset imap_passive
+# keep imap connection alive by polling intermittently (time in seconds)
+set imap_keepalive = 300
+# how often mutt should check for mail (in seconds)
+set mail_check = 120
+
+# sort messsages by thread
+set sort = threads
+# specifies how threads are sorted in relation to other threads
+set sort_aux = reverse-last-date-received
+# will jump to the next unread message, if any, when the current thread is uncollapsed
+set uncollapse_jump
+# allows to change how mutt sort threads
+set sort_re 
+# regexp which allows to recognize reply messages when threading and replying
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
+# shortcut to privat mailbox
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/privat<enter><change-folder>!<enter>'
+# shortcut to hu mailbox
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/accounts/hu<enter><change-folder>!<enter>'
+# shortcut to fu mailbox
+macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.mutt/accounts/fu<enter><change-folder>!<enter>'
+
+# add gpg support
+source /etc/Muttrc.gpg.dist
