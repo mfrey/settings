@@ -101,3 +101,5 @@ if [ $HOSTNAME == $EXPECTED_HOSTNAME ]; then
   export LD_LIBRARY_PATH="${MY_GXX_HOME}/lib:${MY_GXX_HOME}/lib64:${ARA_SIM_HOME}/src:${ARA_SIM_HOME}/inetmanet/src:${OMNETPP_HOME}/lib"
 fi
 
+# enable 256 color terminal for tmux
+[ -n "$TMUX" ] && export TERM=screen-256color
