@@ -7,19 +7,16 @@ Config { font = "xft:inconsolatalgc:pixelsize=12:antialias=true"
   , persistent = True
   , position = Top
   , lowerOnStart = True
-  , commands = [ Run Weather "UUEE" ["-t"," <tempC>C","-L","64","-H","77","--normal","#657b83","--high","#657b83","--low","#657b83"] 36000
+  , commands = [ Run Weather "EDDT" ["-t"," <tempC>C","-L","64","-H","77","--normal","#657b83","--high","#657b83","--low","#657b83"] 36000
   -- set network interface 
   , Run Network "eno1" ["-L","0","-H","32","--normal","#657b83","--high","#657b83"] 10
   --, Run Cpu ["-L","3","-H","50","--normal","#657b83","--high","#657b83"] 10
   , Run MultiCpu ["-t", "<autototal>%", "-L", "3","-H","50","--normal","#657b83","--high","#657b83"] 10
   , Run Memory ["-t","Mem: <usedratio>%"] 10
-  -- set location of the volume.sh script
-  , Run Com "michael/Software/bin/volume.sh" [] "vol" 1
   , Run Date "<fc=#93a1a1>%a %b %_d %Y %H:%M</fc>" "date" 10
   , Run StdinReader
 ]
   , sepChar = "%"
   , alignSep = "}{"
-  -- set network interface and city 
-  , template = " %StdinReader% }{ %multicpu% | %memory% | %eno1% | %vol% | Berlin:%UUEE% | %date% "
+  , template = " %StdinReader% }{ %multicpu% | %memory% | %eno1% | Berlin:%EDDT% | %date% "
 }
