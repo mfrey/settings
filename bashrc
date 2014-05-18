@@ -15,6 +15,9 @@ export R_LIBS="~/.R/library"
 # set an alias for mutt
 alias mutt='mutt -F ~/.mutt/.muttrc'
 
+# always get the line numbers if using grep
+alias grep='grep -n'
+
 # enable core dumps
 ulimit -c unlimited
 # set core dump format (instead of logging via systemd)
@@ -86,6 +89,12 @@ export LC_PAPER=$unt_loc
 # Find file by pattern
 function ff() {
 find . -type f -iname '*'$*'*' -ls ;
+}
+
+# usage example: translate de example (first parameter is the language, second
+# the actual word/sentence
+function translate() {
+wget -U "Mozilla/5.0" -qO- "http://translate.google.com/translate_a/t?client=t&text=$2&sl=auto&tl=$1" | sed 's/\[\[\[\"//' | cut -d \" -f 1
 }
 
 # setup for simulation environment on "knecht.imp.fu-berlin.de"
