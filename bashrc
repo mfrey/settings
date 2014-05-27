@@ -29,7 +29,7 @@ alias cdfmt='echo /tmp/core-%p-%u-%g-%s-%t-%e.core > /proc/sys/kernel/core_patte
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-PATH=$PATH:/home/michael/Software/bin:/opt/rstudio/bin
+PATH=$PATH:$HOME/Software/bin:/opt/rstudio/bin
 
 # function to check where am i
 function whereami() {
@@ -97,18 +97,39 @@ function translate() {
 wget -U "Mozilla/5.0" -qO- "http://translate.google.com/translate_a/t?client=t&text=$2&sl=auto&tl=$1" | sed 's/\[\[\[\"//' | cut -d \" -f 1
 }
 
-# setup for simulation environment on "knecht.imp.fu-berlin.de"
-EXPECTED_HOSTNAME="knecht"
+# the variable (if applicable) points to our build enviroment (only necessary
+# for outdated systems)
+ALTERNATIVE_BUILD_ENVIRONMENT=""
 
-if [ $HOSTNAME == $EXPECTED_HOSTNAME ]; then
-  FREY_SOFTWARE="/home/fenn/frey/NO_BACKUP/Software/build"
-  MY_GXX_HOME="${FREY_SOFTWARE}/rtf"
-  OMNETPP_HOME="${FREY_SOFTWARE}/omnetpp-4.3"
-  ARA_SIM_HOME="${FREY_SOFTWARE}/ara-sim"
-  PYTHON_HOME="${FREY_SOFTWARE}/python"
-  export PATH="${MY_GXX_HOME}/bin:${OMNETPP_HOME}/bin:${PYTHON_HOME}/bin:${PATH}"
-  export LD_LIBRARY_PATH="${MY_GXX_HOME}/lib:${MY_GXX_HOME}/lib64:${ARA_SIM_HOME}/src:${ARA_SIM_HOME}/inetmanet/src:${OMNETPP_HOME}/lib"
-fi
+# if we are on a specific host, we have to set the path to our own custom build
+# made build environment
+case $HOSTNAME in
+  "knecht") ALTERNATIVE_BUILD_ENVIRONMENT="/storage/mi/frey/Software/build"
+  setBuildEnvironment
+  ;;
+  "jupiter") ALTERNATIVE_BUILD_ENVIRONMENT="/vol/home-vol1/simulant/frey"
+  setBuildEnvironment
+  ;;
+  "uhu") ALTERNATIVE_BUILD_ENVIRONMENT="/home/mfrey/testbed/software"
+  setBuildEnvironment
+  ;;
+esac
+
+# this function sets a few variables for systems where we have built our own gcc
+# toolchain and different other tools (e.g. valgrind, gdb, python, etc.)
+function setBuildEnvironment() {
+MY_GXX_HOME="${ALTERNATIVE_BUILD_ENVIRONMENT}/rtf"
+OMNETPP_HOME="${ALTERNATIVE_BUILD_ENVIRONMENT}/omnetpp-4.3"
+ARA_SIM_HOME="${ALTERNATIVE_BUILD_ENVIRONMENT}/ara-sim"
+PYTHON_HOME="${ALTERNATIVE_BUILD_ENVIRONMENT}/python"
+export PATH="${MY_GXX_HOME}/bin:${OMNETPP_HOME}/bin:${PYTHON_HOME}/bin:${PATH}"
+export LD_LIBRARY_PATH="${MY_GXX_HOME}/lib:${MY_GXX_HOME}/lib64:${ARA_SIM_HOME}/src:${ARA_SIM_HOME}/inetmanet/src:${OMNETPP_HOME}/lib"
+}
+
+# this actually makes it easier to debug libara and OMNeT++ specific code
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/Software/omnetpp-4.3/lib/:$HOME/Desktop/Projekte/libara/src
+# OMNeT++ wants to know the path to the tcl libraries 
+export TCL_LIBRARY=/usr/lib/tcl8.6
 
 # enable 256 color terminal for tmux
 [ -n "$TMUX" ] && export TERM=screen-256color
