@@ -20,8 +20,6 @@ alias grep='grep -n'
 
 # enable core dumps
 ulimit -c unlimited
-# set core dump format (instead of logging via systemd)
-alias cdfmt='echo /tmp/core-%p-%u-%g-%s-%t-%e.core > /proc/sys/kernel/core_pattern'
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -125,6 +123,65 @@ PYTHON_HOME="${ALTERNATIVE_BUILD_ENVIRONMENT}/python"
 export PATH="${MY_GXX_HOME}/bin:${OMNETPP_HOME}/bin:${PYTHON_HOME}/bin:${PATH}"
 export LD_LIBRARY_PATH="${MY_GXX_HOME}/lib:${MY_GXX_HOME}/lib64:${ARA_SIM_HOME}/src:${ARA_SIM_HOME}/inetmanet/src:${OMNETPP_HOME}/lib"
 }
+
+# this function allows to execute bash functions using sudo. this code is from
+# https://stackoverflow.com/questions/9448920/how-can-i-execude-bash-function-using-sudo
+function execsudo () {
+    # use underscores to remember it's been passed
+    local _funcname_="$1"
+
+    # array containing all params passed here
+    local params=( "$@" )               
+    # temporary file
+    local tmpfile="/dev/shm/$RANDOM"    
+    # content of the temporary file
+    local filecontent                   
+    # regular expression
+    local regex                         
+    # function source
+    local func                          
+
+    # shift the first param (which is the name of the function) and
+    # remove first element
+    unset params[0]              
+
+    # working on the temporary file:
+    content="#!/bin/bash\n\n"
+
+    # write the params array
+    content="${content}params=(\n"
+
+    regex="\s+"
+    for param in "${params[@]}"
+    do
+        if [[ "$param" =~ $regex ]]
+            then
+                content="${content}\t\"${param}\"\n"
+            else
+                content="${content}\t${param}\n"
+        fi
+    done
+
+    content="$content)\n"
+    echo -e "$content" > "$tmpfile"
+
+    # append the function source
+    echo "#$( type "$_funcname_" )" >> "$tmpfile"
+    # append the call to the function
+    echo -e "\n$_funcname_ \"\${params[@]}\"\n" >> "$tmpfile"
+
+    # execute the temporary file with sudo
+    sudo bash "$tmpfile"
+    rm "$tmpfile"
+}
+
+# it is quite annoying if coredumps are written to systemd, so we simply set the
+# core dump pattern to /tmp
+function set_core_dump_pattern () {
+$(echo /tmp/core-%p-%u-%g-%s-%t-%e.core > /proc/sys/kernel/core_pattern)
+}
+
+export -f set_core_dump_pattern
 
 # this actually makes it easier to debug libara and OMNeT++ specific code
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/Software/omnetpp-4.3/lib/:$HOME/Desktop/Projekte/libara/src
