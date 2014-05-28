@@ -27,7 +27,7 @@ ulimit -c unlimited
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-PATH=$PATH:$HOME/Software/bin:/opt/rstudio/bin
+PATH=$PATH:$HOME/Software/bin
 
 # function to check where am i
 function whereami() {
@@ -178,7 +178,7 @@ function execsudo () {
 # it is quite annoying if coredumps are written to systemd, so we simply set the
 # core dump pattern to /tmp
 function set_core_dump_pattern () {
-$(echo /tmp/core-%p-%u-%g-%s-%t-%e.core > /proc/sys/kernel/core_pattern)
+echo /tmp/core-%p-%u-%g-%s-%t-%e.core > /proc/sys/kernel/core_pattern
 }
 
 export -f set_core_dump_pattern
