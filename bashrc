@@ -13,8 +13,9 @@ export R_HISTFILE="~/.Rhistory"
 export R_LIBS="~/.R/library"
 
 # set an alias for mutt
-alias mutt='mutt -F ~/.mutt/.muttrc'
-
+alias mutt='mutt -F ~/.mutt/muttrc'
+# set an truecrypt alias
+alias tc1='truecrypt --fs-options=users,uid=$(id -u),gid=$(id -g),fmask=0113,dmask=0002 --mount /dev/sde1"" /mnt/truecrypt'
 # always get the line numbers if using grep
 alias grep='grep -n'
 
@@ -182,6 +183,7 @@ echo /tmp/core-%p-%u-%g-%s-%t-%e.core > /proc/sys/kernel/core_pattern
 }
 
 export -f set_core_dump_pattern
+export -f execsudo
 
 # this actually makes it easier to debug libara and OMNeT++ specific code
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/Software/omnetpp-4.3/lib/:$HOME/Desktop/Projekte/libara/src
