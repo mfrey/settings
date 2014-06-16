@@ -1,0 +1,16 @@
+
+set sendmail="/usr/bin/msmtp -a privat"
+# set spoofile to inbox
+set spoolfile = "+Privat/INBOX"
+# set sent folder 
+set record = "+Privat/Sent"
+# set drafts folder
+set postponed = "+Privat/Drafts"
+
+# set real name for mail
+set realname='Michael Frey'
+# set origin mail address
+set from=mail@mfrey.net
+# unset signature option
+unset signature
+

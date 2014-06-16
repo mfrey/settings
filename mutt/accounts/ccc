@@ -1,0 +1,16 @@
+
+set sendmail="/usr/bin/msmtp -a ccc"
+# set spoofile to inbox
+set spoolfile = "+CCC/INBOX"
+# set sent folder 
+set record = "+CCC/Sent"
+# set drafts folder
+set postponed = "+CCC/Drafts"
+
+# set real name for mail
+set realname='Michael Frey'
+# set origin mail address
+set from=ridcully@cccmz.de
+# unset signature option
+unset signature
+
