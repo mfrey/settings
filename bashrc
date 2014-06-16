@@ -179,8 +179,64 @@ function execsudo () {
 # it is quite annoying if coredumps are written to systemd, so we simply set the
 # core dump pattern to /tmp
 function set_core_dump_pattern () {
-echo /tmp/core-%p-%u-%g-%s-%t-%e.core > /proc/sys/kernel/core_pattern
+    echo /tmp/core-%p-%u-%g-%s-%t-%e.core > /proc/sys/kernel/core_pattern
 }
+
+# asks a y/n question. Usage: if ask "something"; then ... ; fi
+function ask() {
+    echo -n "$@" '[Y/n] ' ; read ans
+    case "$ans" in
+        n*|N*) return 1 ;;
+        *) return 0 ;;
+    esac
+}
+
+# require can be used by other functions to make sure that certain commands
+# exist before a whole process of things is started (which potentially leaves temp
+# files and such)
+function require() {
+    which "$1" &>/dev/null
+    if [ "x$?" = "x0" ]; then return 0; fi
+    if [ "x$2" = "xquiet" ]; then return 1; fi
+    if ask "Command not found: $1. Continue?"; then return 0; fi
+    return 1
+}
+
+# This function (name compulsory) looks up a command when no alias or binary is
+# found
+# on the path. This wraps different lookup tools for Arch Linux and Ubuntu, and
+# uses
+# the best available tool.
+function command_not_found_handle() {
+    if [ -x /usr/bin/cnf-lookup ]; then
+        # Arch Linux: command-not-found (from AUR)
+        /usr/bin/cnf-lookup $1
+        return $?
+    elif [ -x /usr/bin/pkgfile ]; then
+        # Arch Linux: pkgtools (from community repo)
+        # There's also /usr/share/pkgtools/pkgfile-hook.bash which could be sourced,
+        # but I like to have the logic in one place
+        local pkgs="$(pkgfile -b -v -- "$1")"
+        if [ ! -z "$pkgs" ]; then
+            echo -e "\n$1 may be found in the following packages:\n$pkgs"
+            return 0
+        fi
+    elif [ -x /usr/lib/command-not-found ]; then
+        # Ubuntu's standard command-not-found handler
+        /usr/bin/python /usr/lib/command-not-found -- $1
+        return $?
+    elif [ -x /usr/share/command-not-found ]; then
+        # Ubuntu's standard command-not-found handler
+        /usr/bin/python /usr/share/command-not-found -- $1
+        return $?
+    fi
+    # Nothing :/
+    printf "bash: $(gettext bash "%s: command not found")\n" $1 >&2
+    return 127
+}
+
+
+
 
 export -f set_core_dump_pattern
 export -f execsudo
