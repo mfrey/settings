@@ -1,0 +1,53 @@
+[general]
+accounts = ccc, privat
+pythonfile = ~/.mutt/offlineimap.py
+
+[Account ccc]
+localrepository = ccc-local
+remoterepository = ccc-remote
+status_backend = sqlite
+
+[Repository ccc-local]
+type = Maildir
+localfolders = ~/Mail/CCC
+
+[Repository ccc-remote]
+type = IMAP
+ssl = yes
+remoteuser = ridcully@cccmz.de
+remotepasseval = _get_mail_password("ccc")
+remotehost = mail.cccmz.de
+cert_fingerprint = 4f84c876b3b400af75626d5a5ce6bb36d9394fc1
+folderfilter = lambda foldername: foldername in [
+	     'INBOX', 'Drafts', 'Sent', 'Archives']
+
+[Account privat]
+localrepository = privat-local
+remoterepository = privat-remote
+status_backend = sqlite
+
+[Repository privat-local]
+type = Maildir
+localfolders = ~/Mail/Privat
+
+[Repository privat-remote]
+type = IMAP
+ssl = yes
+remoteuser = mail@mfrey.net
+remotepasseval = _get_mail_password("privat")
+remotehost = taurus.uberspace.de
+cert_fingerprint = 99a7f44089e6523a46b7de2f6f404ef2a27b9736
+folderfilter = lambda foldername: foldername in [
+	     'INBOX', 'Drafts', 'Sent', 'Archives']
+
+
+# apparently mutt doesn't want to guess what directory is a mailbox
+# and which isn't, so we generate a fragment for mutt
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
+
