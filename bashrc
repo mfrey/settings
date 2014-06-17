@@ -235,9 +235,6 @@ function command_not_found_handle() {
     return 127
 }
 
-
-
-
 export -f set_core_dump_pattern
 export -f execsudo
 
