@@ -19,6 +19,9 @@ alias tc1='truecrypt --fs-options=users,uid=$(id -u),gid=$(id -g),fmask=0113,dma
 # always get the line numbers if using grep
 alias grep='grep -n'
 
+# alias for hu openvpn
+alias hu='sudo /usr/sbin/openvpn  --config /etc/openvpn/wlanin.conf'
+
 # enable core dumps
 ulimit -c unlimited
 
