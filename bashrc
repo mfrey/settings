@@ -31,6 +31,14 @@ ulimit -c unlimited
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
+# path to ruby gem directory
+RUBY_GEM_DIRECTORY=$HOME/.gem/ruby/2.1.0/bin/
+
+# check if we have a ruby gem directory and it in case to the path
+if [ -d "$RUBY_GEM_DIRECTORY" ]; then
+    PATH=$PATH:$RUBY_GEM_DIRECTORY
+fi
+
 PATH=$PATH:$HOME/Software/bin
 
 # function to check where am i
