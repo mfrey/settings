@@ -31,15 +31,25 @@ ulimit -c unlimited
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-# path to ruby gem directory
+# let's first check if certain directories are existent before we
+# add them to the $PATH variable
+function add_directory_to_path() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+
 RUBY_GEM_DIRECTORY=$HOME/.gem/ruby/2.1.0/bin/
+add_directory_to_path $RUBY_GEM_DIRECTORY
 
-# check if we have a ruby gem directory and it in case to the path
-if [ -d "$RUBY_GEM_DIRECTORY" ]; then
-    PATH=$PATH:$RUBY_GEM_DIRECTORY
-fi
+COVERITY_DIRECTORY=$HOME/Software/build/cov-analysis-linux64-7.5.0/bin
+add_directory_to_path $COVERITY_DIRECTORY
 
-PATH=$PATH:$HOME/Software/bin
+OMNETPP_DIRECTORY=$HOME/Software/omnetpp-4.3/bin
+add_directory_to_path $OMNETPP_DIRECTORY
+
+LOCAL_SOFTWARE_DIRECTORY=$HOME/Software/bin
+add_directory_to_path $LOCAL_SOFTWARE_DIRECTORY
 
 # function to check where am i
 function whereami() {
