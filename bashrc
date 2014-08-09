@@ -51,6 +51,10 @@ add_directory_to_path $OMNETPP_DIRECTORY
 LOCAL_SOFTWARE_DIRECTORY=$HOME/Software/bin
 add_directory_to_path $LOCAL_SOFTWARE_DIRECTORY
 
+GARMIN_DEV_DIRECTORY=$HOME/Software/build/garmin-dev
+add_directory_to_path $GARMIN_DEV_DIRECTORY
+
+
 # function to check where am i
 function whereami() {
   if [ $HOSTNAME = "prefect" ]; then echo "home"; exit; fi
