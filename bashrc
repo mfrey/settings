@@ -270,3 +270,5 @@ export TCL_LIBRARY=/usr/lib/tcl8.6
 
 # enable 256 color terminal for tmux
 [ -n "$TMUX" ] && export TERM=screen-256color
+
+export JAVA_HOME=/usr/lib/jvm/java-default-runtime
