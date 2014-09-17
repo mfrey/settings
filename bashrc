@@ -45,7 +45,7 @@ add_directory_to_path $RUBY_GEM_DIRECTORY
 COVERITY_DIRECTORY=$HOME/Software/build/cov-analysis-linux64-7.5.0/bin
 add_directory_to_path $COVERITY_DIRECTORY
 
-OMNETPP_DIRECTORY=$HOME/Software/omnetpp-4.3/bin
+OMNETPP_DIRECTORY=$HOME/Software/omnetpp-4.5/bin
 add_directory_to_path $OMNETPP_DIRECTORY
 
 LOCAL_SOFTWARE_DIRECTORY=$HOME/Software/bin
