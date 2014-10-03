@@ -264,7 +264,7 @@ export -f set_core_dump_pattern
 export -f execsudo
 
 # this actually makes it easier to debug libara and OMNeT++ specific code
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/Software/omnetpp-4.3/lib/:$HOME/Desktop/Projekte/libara/src
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/Software/omnetpp-4.5/lib/:$HOME/Desktop/Projekte/libara/src
 # OMNeT++ wants to know the path to the tcl libraries 
 export TCL_LIBRARY=/usr/lib/tcl8.6
 
