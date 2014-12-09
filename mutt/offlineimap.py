@@ -1,5 +1,25 @@
+#!/usr/bin/env python
+
+import re
 import os.path
+import getpass
 import subprocess
+
+def get_keychain_pass(account=None, server=None):
+    params = {
+        'security': '/usr/bin/security',
+	'user' : getpass.getuser(),
+        'command': 'find-internet-password',
+        'account': account,
+        'server': server,
+        'keychain': '/Users/' + getpass.getuser() + '/Library/Keychains/login.keychain',
+    }
+    command = "sudo -u %(user)s %(security)s -v %(command)s -g -a %(account)s -s %(server)s %(keychain)s" % params
+    output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
+    outtext = [l for l in output.splitlines()
+               if l.startswith('password: ')][0]
+
+    return re.match(r'password: "(.*)"', outtext).group(1)
 
 def _get_mail_password(account):
     account = os.path.basename(account)
