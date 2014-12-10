@@ -272,3 +272,8 @@ export TCL_LIBRARY=/usr/lib/tcl8.6
 [ -n "$TMUX" ] && export TERM=screen-256color
 
 export JAVA_HOME=/usr/lib/jvm/java-default-runtime
+
+# notify me when a background job is done
+set -o notify
+# report status if background job terminated 
+set -b              
