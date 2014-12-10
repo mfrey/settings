@@ -3,21 +3,25 @@ set realname='Michael Frey'
 # set vim as my editor for composing mails
 set editor=vim
 
+# don't ask, just quit
+set quit                 
+
+
 # set color scheme to solarized light
-source '~/.mutt/solarized-light'
+source '~/.mutt/solarized-dark'
 
 # set private mail 
 source '~/.mutt/accounts/privat'
 folder-hook $folder 'source ~/.mutt/accounts/privat'
 # set work (hu) mail 
-#source '~/.mutt/accounts/hu'
-#folder-hook $folder 'source ~/.mutt/accounts/hu'
+source '~/.mutt/accounts/hu'
+folder-hook $folder 'source ~/.mutt/accounts/hu'
 # set work (fu) mail 
 #source '~/.mutt/accounts/fu'
 #folder-hook $folder 'source ~/.mutt/accounts/fu'
 # set cccmz mail 
-source '~/.mutt/accounts/ccc'
-folder-hook $folder 'source ~/.mutt/accounts/ccc'
+#source '~/.mutt/accounts/ccc'
+#folder-hook $folder 'source ~/.mutt/accounts/ccc'
 
 # load offlineimap mailbox fragements for mutt
 source ~/.mutt/mailboxes
@@ -29,6 +33,15 @@ set charset="utf-8"
 set folder=$HOME/Mail
 # store message headers locally to speed things up (has to be a folder for multiple accounts)
 set header_cache = ~/.mutt/hcache
+
+# add dashes before signatures
+set sig_dashes   
+# format of subject when forwarding mail
+set forward_format = "Fwd: %s"       
+# include message in replies
+set include                          
+# include message in forwards
+set forward_quote                    
 
 # sort messsages by thread
 set sort = threads
@@ -44,11 +57,18 @@ set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 # shortcut to privat mailbox
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/privat<enter><change-folder>!<enter>'
 # shortcut to hu mailbox
-#macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/accounts/hu<enter><change-folder>!<enter>'
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/accounts/hu<enter><change-folder>!<enter>'
 # shortcut to fu mailbox
 #macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.mutt/accounts/fu<enter><change-folder>!<enter>'
 # shortcut to cccmz mailbox
-macro index,pager <f5> '<sync-mailbox><enter-command>source ~/.mutt/accounts/ccc<enter><change-folder>!<enter>'
+#macro index,pager <f5> '<sync-mailbox><enter-command>source ~/.mutt/accounts/ccc<enter><change-folder>!<enter>'
+
+macro pager \Cu "|urlview<enter>" "call urlview to open links"
 
 # add gpg support
-source /etc/Muttrc.gpg.dist
+#source /etc/Muttrc.gpg.dist
+
+# add support for macosx address book contacts (via contacts application)
+set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
+bind editor <Tab> complete-query
+bind editor ^T    complete
