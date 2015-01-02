@@ -15,4 +15,5 @@ else
   xrdb -merge ~/.Xresources
 fi
 
+feh --bg-scale /home/$(USER)/Pictures/Wallpapers/blue.png&
 exec xmonad
