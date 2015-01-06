@@ -60,7 +60,7 @@ function whereami() {
   if [ $HOSTNAME = "prefect" ]; then echo "home"; exit; fi
   if [ $HOSTNAME = "beeblebrox" ]; then echo "notebook"; exit; fi
   if [ $HOSTNAME = "andorra" ] || [ $HOSTNAME = "ramssys" ] || [ $HOSTNAME = "uhu"] || [ $HOSTNAME = "cu" ] || [ $HOSTNAME = "knecht" ]; then echo "fu"; fi
-  if [ $HOSTNAME = "gruenau" ] || [ $HOSTNAME = "pandora" ] || [ $HOSTNAME = "jupiter" ]; then echo "hu"; fi
+  if [ $HOSTNAME = "gruenau" ] || [ $HOSTNAME = "jupiter" ]; then echo "hu"; fi
 }
 
 # Locales for units. Use german UTF-8 if available,
