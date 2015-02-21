@@ -1,16 +1,12 @@
 #!/usr/bin/env python
 
-import re
-import os.path
 import getpass
-import subprocess
+import re, subprocess
 
-from sys import platform as _platform
+from sys import platform
 
 def get_keychain_pass(account=None, server=None):
-    if _platform == "linux" or _platform == "linux2":
-        return _get_mail_password(account)
-    elif _platform == "darwin":
+    if platform == "darwin":
         params = {
             'security': '/usr/bin/security',
 	    'user' : getpass.getuser(),
@@ -25,17 +21,19 @@ def get_keychain_pass(account=None, server=None):
                    if l.startswith('password: ')][0]
 
         return re.match(r'password: "(.*)"', outtext).group(1)
-    else:
-        return "unknown operating system"
 
-def _get_mail_password(account):
-    account = os.path.basename(account)
-    path = "/home/michael/.passwd/%s.gpg" % account
-    args = ["gpg", "--use-agent", "--quiet", "--batch", "-d", path]
-    try:
-        return subprocess.check_output(args).strip()
-    except subprocess.CalledProcessError:
-        return ""
+    elif platform == "linux":
+        account = os.path.basename(account)
+        path = "/home/michael/.passwd/%s.gpg" % account
+        args = ["gpg", "--use-agent", "--quiet", "--batch", "-d", path]
+        try:
+            return subprocess.check_output(args).strip()
+        except subprocess.CalledProcessError:
+            return ""
+    else:
+        print("unsupported plaform " + platform)
+
+    return ""
 
 def prime_gpg_agent():
     ret = False
@@ -49,4 +47,5 @@ def prime_gpg_agent():
         i += 1
     return ret
 
-prime_gpg_agent()
+if platform == "linux":
+    prime_gpg_agent()
