@@ -1,32 +1,7 @@
 [general]
-accounts = ccc
-#accounts = ccc, privat, fu, hu
+accounts = privat, hu, fu
 pythonfile = ~/.mutt/offlineimap.py
-maxsyncaccounts = 1
-
-[Account ccc]
-localrepository = ccc-local
-remoterepository = ccc-remote
-status_backend = sqlite
-autorefresh = 5
-quick = 10
-
-[Repository ccc-local]
-type = Maildir
-localfolders = ~/Mail/CCC
-
-[Repository ccc-remote]
-type = IMAP
-ssl = yes
-remoteuser = ridcully@cccmz.de
-remotepasseval = _get_mail_password("ccc")
-remotehost = mail.cccmz.de
-#cert_fingerprint = 4f84c876b3b400af75626d5a5ce6bb36d9394fc1
-sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-folderfilter = lambda foldername: foldername in [
-	     'INBOX', 'Drafts', 'Sent', 'Archives']
-keepalive = 60
-holdconnectionopen = yes
+maxsyncaccounts = 3
 
 [Account privat]
 localrepository = privat-local
@@ -43,7 +18,7 @@ localfolders = ~/Mail/Privat
 type = IMAP
 ssl = yes
 remoteuser = mail@mfrey.net
-remotepasseval = _get_mail_password("privat")
+remotepasseval = get_keychain_pass(account="mail@mfrey.net", server="taurus.uberspace.de")
 remotehost = taurus.uberspace.de
 cert_fingerprint = 99a7f44089e6523a46b7de2f6f404ef2a27b9736
 folderfilter = lambda foldername: foldername in [
@@ -66,7 +41,7 @@ localfolders = ~/Mail/FU
 type = IMAP
 ssl = yes
 remoteuser = frey
-remotepasseval = _get_mail_password("fu")
+remotepasseval = get_keychain_pass(account="frey@zedat.fu-berlin.de", server="mail.zedat.fu-berlin.de")
 remotehost = mail.zedat.fu-berlin.de
 cert_fingerprint = bb6b02645c4cd385f9e61de368bae04a8d626847
 folderfilter = lambda foldername: foldername in [
@@ -89,7 +64,7 @@ localfolders = ~/Mail/HU
 type = IMAP
 ssl = yes
 remoteuser = frey
-remotepasseval = _get_mail_password("hu")
+remotepasseval = get_keychain_pass(account="frey@informatik.hu-berlin.de", server="mailbox.informatik.hu-berlin.de")
 remotehost = mailbox.informatik.hu-berlin.de
 cert_fingerprint = 0c7872cb6bf5a3028c97b73584f7df1a35b69c1e
 folderfilter = lambda foldername: foldername in [
@@ -106,4 +81,3 @@ header = "mailboxes "
 peritem = "+%(accountname)s/%(foldername)s"
 sep = " "
 footer = "\n"
-
