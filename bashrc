@@ -115,12 +115,6 @@ function ff() {
 find . -type f -iname '*'$*'*' -ls ;
 }
 
-# usage example: translate de example (first parameter is the language, second
-# the actual word/sentence
-function translate() {
-wget -U "Mozilla/5.0" -qO- "http://translate.google.com/translate_a/t?client=t&text=$2&sl=auto&tl=$1" | sed 's/\[\[\[\"//' | cut -d \" -f 1
-}
-
 # the variable (if applicable) points to our build enviroment (only necessary
 # for outdated systems)
 ALTERNATIVE_BUILD_ENVIRONMENT=""
