@@ -271,3 +271,10 @@ export JAVA_HOME=/usr/lib/jvm/java-default-runtime
 set -o notify
 # report status if background job terminated 
 set -b              
+
+# set java home accordingly to the operating system 
+if [ $OSTYPE == "darwin14" ]; then 
+    export JAVA_HOME=$(/usr/libexec/java_home)
+else
+    export JAVA_HOME=/usr/lib/jvm/java-default-runtime
+fi
