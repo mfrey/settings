@@ -265,8 +265,6 @@ export TCL_LIBRARY=/usr/lib/tcl8.6
 # enable 256 color terminal for tmux
 [ -n "$TMUX" ] && export TERM=screen-256color
 
-export JAVA_HOME=/usr/lib/jvm/java-default-runtime
-
 # notify me when a background job is done
 set -o notify
 # report status if background job terminated 
@@ -278,3 +276,9 @@ if [ $OSTYPE == "darwin14" ]; then
 else
     export JAVA_HOME=/usr/lib/jvm/java-default-runtime
 fi
+
+# add the android ndk environment variable
+ANDROID_NDK_HOME=$HOME/Software/android-ndk-r10e
+if [ -d "$ANDROID_NDK_HOME" ]; then
+    export ANDROID_NDK_HOME
+fi;
