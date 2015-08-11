@@ -16,8 +16,6 @@ export R_LIBS="~/.R/library"
 alias mutt='mutt -F ~/.mutt/muttrc'
 # set an truecrypt alias
 alias tc1='truecrypt --fs-options=users,uid=$(id -u),gid=$(id -g),fmask=0113,dmask=0002 --mount /dev/sde1"" /mnt/truecrypt'
-# always get the line numbers if using grep
-alias grep='grep -n'
 
 # alias for hu openvpn
 alias hu='sudo /usr/sbin/openvpn  --config /etc/openvpn/wlanin.conf'
