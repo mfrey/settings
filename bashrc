@@ -57,8 +57,6 @@ add_directory_to_path $GARMIN_DEV_DIRECTORY
 function whereami() {
   if [ $HOSTNAME = "prefect" ]; then echo "home"; exit; fi
   if [ $HOSTNAME = "beeblebrox" ]; then echo "notebook"; exit; fi
-  if [ $HOSTNAME = "andorra" ] || [ $HOSTNAME = "ramssys" ] || [ $HOSTNAME = "uhu"] || [ $HOSTNAME = "cu" ] || [ $HOSTNAME = "knecht" ]; then echo "fu"; fi
-  if [ $HOSTNAME = "gruenau" ] || [ $HOSTNAME = "jupiter" ]; then echo "hu"; fi
 }
 
 # Locales for units. Use german UTF-8 if available,
@@ -111,35 +109,6 @@ export LC_PAPER=$unt_loc
 # Find file by pattern
 function ff() {
 find . -type f -iname '*'$*'*' -ls ;
-}
-
-# the variable (if applicable) points to our build enviroment (only necessary
-# for outdated systems)
-ALTERNATIVE_BUILD_ENVIRONMENT=""
-
-# if we are on a specific host, we have to set the path to our own custom build
-# made build environment
-case $HOSTNAME in
-  "knecht") ALTERNATIVE_BUILD_ENVIRONMENT="/storage/mi/frey/Software/build"
-  setBuildEnvironment
-  ;;
-  "jupiter") ALTERNATIVE_BUILD_ENVIRONMENT="/vol/home-vol1/simulant/frey"
-  setBuildEnvironment
-  ;;
-  "uhu") ALTERNATIVE_BUILD_ENVIRONMENT="/home/mfrey/testbed/software"
-  setBuildEnvironment
-  ;;
-esac
-
-# this function sets a few variables for systems where we have built our own gcc
-# toolchain and different other tools (e.g. valgrind, gdb, python, etc.)
-function setBuildEnvironment() {
-MY_GXX_HOME="${ALTERNATIVE_BUILD_ENVIRONMENT}/rtf"
-OMNETPP_HOME="${ALTERNATIVE_BUILD_ENVIRONMENT}/omnetpp-4.3"
-ARA_SIM_HOME="${ALTERNATIVE_BUILD_ENVIRONMENT}/ara-sim"
-PYTHON_HOME="${ALTERNATIVE_BUILD_ENVIRONMENT}/python"
-export PATH="${MY_GXX_HOME}/bin:${OMNETPP_HOME}/bin:${PYTHON_HOME}/bin:${PATH}"
-export LD_LIBRARY_PATH="${MY_GXX_HOME}/lib:${MY_GXX_HOME}/lib64:${ARA_SIM_HOME}/src:${ARA_SIM_HOME}/inetmanet/src:${OMNETPP_HOME}/lib"
 }
 
 # this function allows to execute bash functions using sudo. this code is from
