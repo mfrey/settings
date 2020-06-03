@@ -232,9 +232,3 @@ if [ $OSTYPE == "darwin14" ]; then
 else
     export JAVA_HOME=/usr/lib/jvm/java-default-runtime
 fi
-
-# add the android ndk environment variable
-ANDROID_NDK_HOME=$HOME/Software/android-ndk-r10e
-if [ -d "$ANDROID_NDK_HOME" ]; then
-    export ANDROID_NDK_HOME
-fi;
