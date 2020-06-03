@@ -17,9 +17,6 @@ alias mutt='mutt -F ~/.mutt/muttrc'
 # set an truecrypt alias
 alias tc1='truecrypt --fs-options=users,uid=$(id -u),gid=$(id -g),fmask=0113,dmask=0002 --mount /dev/sde1"" /mnt/truecrypt'
 
-# alias for hu openvpn
-alias hu='sudo /usr/sbin/openvpn  --config /etc/openvpn/wlanin.conf'
-
 # enable core dumps
 ulimit -c unlimited
 
@@ -42,9 +39,6 @@ add_directory_to_path $RUBY_GEM_DIRECTORY
 
 COVERITY_DIRECTORY=$HOME/Software/build/cov-analysis-linux64-7.5.0/bin
 add_directory_to_path $COVERITY_DIRECTORY
-
-OMNETPP_DIRECTORY=$HOME/Software/omnetpp-4.5/bin
-add_directory_to_path $OMNETPP_DIRECTORY
 
 LOCAL_SOFTWARE_DIRECTORY=$HOME/Software/bin
 add_directory_to_path $LOCAL_SOFTWARE_DIRECTORY
@@ -223,11 +217,6 @@ function command_not_found_handle() {
 
 export -f set_core_dump_pattern
 export -f execsudo
-
-# this actually makes it easier to debug libara and OMNeT++ specific code
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/Software/omnetpp-4.5/lib/:$HOME/Desktop/Projekte/libara/src
-# OMNeT++ wants to know the path to the tcl libraries 
-export TCL_LIBRARY=/usr/lib/tcl8.6
 
 # enable 256 color terminal for tmux
 [ -n "$TMUX" ] && export TERM=screen-256color
