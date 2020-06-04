@@ -1,5 +1,5 @@
 [general]
-accounts = privat, hu, fu
+accounts = privat
 pythonfile = ~/.mutt/offlineimap.py
 maxsyncaccounts = 3
 
@@ -21,52 +21,6 @@ remoteuser = mail@mfrey.net
 remotepasseval = get_keychain_pass(account="mail@mfrey.net", server="taurus.uberspace.de")
 remotehost = taurus.uberspace.de
 cert_fingerprint = 99a7f44089e6523a46b7de2f6f404ef2a27b9736
-folderfilter = lambda foldername: foldername in [
-	     'INBOX', 'Drafts', 'Sent', 'Archives']
-keepalive = 60
-holdconnectionopen = yes
-
-[Account fu]
-localrepository = fu-local
-remoterepository = fu-remote
-status_backend = sqlite
-autorefresh = 5
-quick = 10
-
-[Repository fu-local]
-type = Maildir
-localfolders = ~/Mail/FU
-
-[Repository fu-remote]
-type = IMAP
-ssl = yes
-remoteuser = frey
-remotepasseval = get_keychain_pass(account="frey@zedat.fu-berlin.de", server="mail.zedat.fu-berlin.de")
-remotehost = mail.zedat.fu-berlin.de
-cert_fingerprint = bb6b02645c4cd385f9e61de368bae04a8d626847
-folderfilter = lambda foldername: foldername in [
-	     'INBOX', 'Drafts', 'Sent', 'Archives']
-keepalive = 60
-holdconnectionopen = yes
-
-[Account hu]
-localrepository = hu-local
-remoterepository = hu-remote
-status_backend = sqlite
-autorefresh = 5
-quick = 10
-
-[Repository hu-local]
-type = Maildir
-localfolders = ~/Mail/HU
-
-[Repository hu-remote]
-type = IMAP
-ssl = yes
-remoteuser = frey
-remotepasseval = get_keychain_pass(account="frey@informatik.hu-berlin.de", server="mailbox.informatik.hu-berlin.de")
-remotehost = mailbox.informatik.hu-berlin.de
-cert_fingerprint = 0c7872cb6bf5a3028c97b73584f7df1a35b69c1e
 folderfilter = lambda foldername: foldername in [
 	     'INBOX', 'Drafts', 'Sent', 'Archives']
 keepalive = 60
