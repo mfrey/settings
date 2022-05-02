@@ -7,10 +7,6 @@
 
 # set editor for e.g. mutt, svn
 export EDITOR=vim
-# the location for the R history file (required by .Rprofile)
-export R_HISTFILE="~/.Rhistory"
-# the location ofh the R libraries
-export R_LIBS="~/.R/library"
 
 # set an alias for mutt
 alias mutt='mutt -F ~/.mutt/muttrc'
@@ -32,25 +28,6 @@ function add_directory_to_path() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         PATH="${PATH:+"$PATH:"}$1"
     fi
-}
-
-RUBY_GEM_DIRECTORY=$HOME/.gem/ruby/2.1.0/bin/
-add_directory_to_path $RUBY_GEM_DIRECTORY
-
-COVERITY_DIRECTORY=$HOME/Software/build/cov-analysis-linux64-7.5.0/bin
-add_directory_to_path $COVERITY_DIRECTORY
-
-LOCAL_SOFTWARE_DIRECTORY=$HOME/Software/bin
-add_directory_to_path $LOCAL_SOFTWARE_DIRECTORY
-
-GARMIN_DEV_DIRECTORY=$HOME/Software/build/garmin-dev
-add_directory_to_path $GARMIN_DEV_DIRECTORY
-
-
-# function to check where am i
-function whereami() {
-  if [ $HOSTNAME = "prefect" ]; then echo "home"; exit; fi
-  if [ $HOSTNAME = "beeblebrox" ]; then echo "notebook"; exit; fi
 }
 
 # Locales for units. Use german UTF-8 if available,
